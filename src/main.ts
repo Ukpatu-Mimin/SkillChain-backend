@@ -37,7 +37,7 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document);
 
   await app.listen(process.env.PORT ?? 3001);
-  console.log(`🚀 SkillChain API running on: ${await app.getUrl()}/api/v1`);
-  console.log(`📚 Swagger docs at: ${await app.getUrl()}/api/docs`);
+  console.log(`SkillChain API running on: ${await app.getUrl()}/api/v1`);
+  console.log(`Swagger docs at: ${await app.getUrl()}/api/docs`);
 }
 bootstrap();
