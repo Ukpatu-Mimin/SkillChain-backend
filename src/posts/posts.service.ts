@@ -123,28 +123,28 @@ export class PostsService {
     });
   }
 
-  async addComment(userId: string, postId: string, content: string) {
-    const comment = await this.prisma.postComment.create({
-      data: { postId, authorId: userId, content },
-      include: {
-        author: { select: { id: true, name: true, handle: true, avatar: true, isVerified: true } },
-      },
-    });
-    const post = await this.prisma.post.update({
-      where: { id: postId },
-      data: { commentsCount: { increment: 1 } },
-    });
-    if (post.authorId !== userId) {
-      await this.notifications.create(post.authorId, {
-        type: 'comment',
-        title: 'New Comment',
-        message: 'Someone commented on your post',
-        targetId: postId,
-        linkTab: 'home',
-      });
-    }
-    return comment;
-  }
+  // async addComment(userId: string, postId: string, content: string) {
+  //   const comment = await this.prisma.postComment.create({
+  //     data: { postId, authorId: userId, content },
+  //     include: {
+  //       author: { select: { id: true, name: true, handle: true, avatar: true, isVerified: true } },
+  //     },
+  //   });
+  //   const post = await this.prisma.post.update({
+  //     where: { id: postId },
+  //     data: { commentsCount: { increment: 1 } },
+  //   });
+  //   if (post.authorId !== userId) {
+  //     await this.notifications.create(post.authorId, {
+  //       type: 'comment',
+  //       title: 'New Comment',
+  //       message: 'Someone commented on your post',
+  //       targetId: postId,
+  //       linkTab: 'home',
+  //     });
+  //   }
+  //   return comment;
+  // }
 
   async toggleCommentLike(userId: string, commentId: string) {
     const existing = await this.prisma.commentLike.findUnique({
